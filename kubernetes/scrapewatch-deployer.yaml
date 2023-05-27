@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scrapewatch
+  labels:
+    app: scrapewatch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scrapewatch
+  template:
+    metadata:
+      labels:
+        app: scrapewatch
+    spec:
+      containers:
+      - name: scrapewatch
+        image: natanasov1994/scrapewatch:1
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "1"
+          requests:
+            memory: 256Mi
+            cpu: "0.2"
+        ports:
+        - containerPort: 8080

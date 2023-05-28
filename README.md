@@ -34,7 +34,7 @@ See: https://github.com/natanasov94/scrapewatch
 All versions of the docker image are pushed to [Scrapewatch dockerhub](https://hub.docker.com/repository/docker/natanasov1994/scrapewatch)
 
 ## Kubernetes cluster
-The kubernetes cluster is setup via [minikube](https://minikube.sigs.k8s.io/docs/start/). Nothing special, just install and start it up via `minikube start`
+The kubernetes cluster is assumed running on the docker desktop kubernetes cluster. This was the easiest integraiton that could be done to get a `kubectl` working from within a docker container
 
 ## Prometheus
 

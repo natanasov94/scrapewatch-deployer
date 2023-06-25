@@ -11,3 +11,4 @@ data:
       - job_name: 'scrapewatch'
         static_configs:
           - targets: ['scrapewatch:8080']
+        metrics_path: /actuator/prometheus

@@ -41,7 +41,7 @@ daemonset:
       filebeat.inputs:
       - type: container
         paths:
-          - /var/log/containers/*.log
+          - /var/log/containers/*/*.log
         processors:
         - add_kubernetes_metadata:
             host: ${NODE_NAME}
@@ -95,31 +95,6 @@ image: "docker.elastic.co/beats/filebeat"
 imageTag: "8.5.1"
 imagePullPolicy: "IfNotPresent"
 imagePullSecrets: []
-livenessProbe:
-  exec:
-    command:
-      - sh
-      - -c
-      - |
-        #!/usr/bin/env bash -e
-        curl --fail 127.0.0.1:5066
-  failureThreshold: 3
-  initialDelaySeconds: 10
-  periodSeconds: 10
-  timeoutSeconds: 5
-
-readinessProbe:
-  exec:
-    command:
-      - sh
-      - -c
-      - |
-        #!/usr/bin/env bash -e
-        filebeat test output
-  failureThreshold: 3
-  initialDelaySeconds: 10
-  periodSeconds: 10
-  timeoutSeconds: 5
 
 # Whether this chart should self-manage its service account, role, and associated role binding.
 managedServiceAccount: true

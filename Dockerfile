@@ -14,4 +14,6 @@ RUN ./get_helm.sh
 
 COPY scripts/apply.sh /usr/local/bin/apply
 COPY scripts/delete.sh /usr/local/bin/delete
+COPY scripts/restart.sh /usr/local/bin/restart
+COPY scripts/list.sh /usr/local/bin/list
 COPY kubernetes /kubernetes

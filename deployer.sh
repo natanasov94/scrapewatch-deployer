@@ -5,4 +5,4 @@ docker run --rm \
     -v ~/.kube/config:/root/.kube/config \
     -p 8080:8080 \
     -p 9090:9090 \
-    scrapewatch-deployer /scripts/$1.sh
+    scrapewatch-deployer $1

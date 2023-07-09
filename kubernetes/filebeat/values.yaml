@@ -41,16 +41,21 @@ daemonset:
       filebeat.inputs:
       - type: container
         paths:
-          - /var/log/containers/*/*.log
+          - /var/log/containers/*.log
         processors:
         - add_kubernetes_metadata:
             host: ${NODE_NAME}
             matchers:
             - logs_path:
                 logs_path: "/var/log/containers/"
+        containers:
+          path: /var/log/containers/
+          ids:
+          - scrapewatch-*
 
-      output.console:
-        pretty: true
+      output.file:
+        path: "/output.log"
+
   nodeSelector: {}
   # A list of secrets and their paths to mount inside the pod
   # This is useful for mounting certificates for security other sensitive values

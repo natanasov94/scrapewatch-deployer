@@ -49,8 +49,8 @@ daemonset:
             - logs_path:
                 logs_path: "/var/log/containers/"
 
-      output.file:
-        path: "/output.log"
+      output.logstash:
+        hosts: ["logstash-logstash.scrapewatch:5044"]
 
   nodeSelector: {}
   # A list of secrets and their paths to mount inside the pod

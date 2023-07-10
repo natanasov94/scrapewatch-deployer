@@ -22,7 +22,11 @@ logstashPipeline:
        port => "5044"
      }
    }
-   output { stdout { } }
+   output {
+    elasticsearch {
+      hosts => "http://elasticsearch-master.scrapewatch:9200"
+    }
+   }
 
 # Allows you to add any pattern files in your custom pattern dir
 logstashPatternDir: "/usr/share/logstash/patterns/"

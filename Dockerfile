@@ -16,4 +16,5 @@ COPY scripts/apply.sh /usr/local/bin/apply
 COPY scripts/delete.sh /usr/local/bin/delete
 COPY scripts/restart.sh /usr/local/bin/restart
 COPY scripts/list.sh /usr/local/bin/list
+COPY scripts/get_kibana_credentials.sh /usr/local/bin/get_kibana_credentials
 COPY kubernetes /kubernetes

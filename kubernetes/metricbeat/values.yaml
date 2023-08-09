@@ -1,0 +1,106 @@
+---
+
+deployment:
+  enabled: false
+
+daemonset:
+  enabled: true
+
+  metricbeatConfig:
+    metricbeat.yml: |
+      metricbeat.modules:
+      - module: prometheus
+        metricsets:
+          - collector
+        period: 10s
+        metrics_path: "/actuator/prometheus"
+        hosts: ["scrapewatch.scrapewatch:8080"]
+      output.logstash:
+        hosts: ["logstash-logstash.scrapewatch:5044"]
+
+  securityContext:
+    runAsUser: 0
+    privileged: false
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "100Mi"
+    limits:
+      cpu: "1000m"
+      memory: "200Mi"
+  tolerations: []
+
+# Replicas being used for the kube-state-metrics metricbeat deployment
+replicas: 1
+
+hostPathRoot: /var/lib
+
+image: "docker.elastic.co/beats/metricbeat"
+imageTag: "8.5.1"
+imagePullPolicy: "IfNotPresent"
+imagePullSecrets: []
+
+# Whether this chart should self-manage its service account, role, and associated role binding.
+managedServiceAccount: true
+
+clusterRoleRules:
+  - apiGroups: [""]
+    resources:
+      - nodes
+      - namespaces
+      - events
+      - pods
+      - services
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["extensions"]
+    resources:
+      - replicasets
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources:
+      - statefulsets
+      - deployments
+      - replicasets
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources:
+      - nodes/stats
+    verbs: ["get"]
+  - apiGroups:
+      - ""
+    resources:
+      - nodes/stats
+    verbs:
+      - get
+  - nonResourceURLs:
+      - "/metrics"
+    verbs:
+      - get
+
+podAnnotations: {}
+# iam.amazonaws.com/role: es-cluster
+
+# Custom service account override that the pod will use
+serviceAccount: ""
+
+# Annotations to add to the ServiceAccount that is created if the serviceAccount value isn't set.
+serviceAccountAnnotations: {}
+# eks.amazonaws.com/role-arn: arn:aws:iam::111111111111:role/k8s.clustername.namespace.serviceaccount
+
+# How long to wait for metricbeat pods to stop gracefully
+terminationGracePeriod: 30
+
+# This is the PriorityClass settings as defined in
+# https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/#priorityclass
+priorityClassName: ""
+
+updateStrategy: RollingUpdate
+
+# Override various naming aspects of this chart
+# Only edit these if you know what you're doing
+nameOverride: ""
+fullnameOverride: ""
+
+kube_state_metrics:
+  enabled: false
+

@@ -19,19 +19,20 @@ logstashConfig:
 ### ***warn*** there is a hardcoded logstash.conf in the image, override it first
 logstashPipeline:
  logstash.conf: |
-   input {
-     beats {
-       port => "5044"
-     }
-   }
-   output { elasticsearch {
-        hosts => ["https://elasticsearch-master.scrapewatch:9200"]
-        cacert => "/usr/share/logstash/config/certs/ca.crt"
-        user => '${ELASTICSEARCH_USERNAME}'
-        password => '${ELASTICSEARCH_PASSWORD}'
-        index => "logstash"
-      }
+  input {
+    beats {
+      port => "5044"
     }
+  }
+  output {
+    elasticsearch {
+      hosts => ["https://elasticsearch-master.scrapewatch:9200"]
+      cacert => "/usr/share/logstash/config/certs/ca.crt"
+      user => '${ELASTICSEARCH_USERNAME}'
+      password => '${ELASTICSEARCH_PASSWORD}'
+      index => "%{[@metadata][beat]}"
+    }
+  }
 
 # Allows you to add any pattern files in your custom pattern dir
 logstashPatternDir: "/usr/share/logstash/patterns/"

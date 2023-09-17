@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: scrapewatch-ui
-        image: natanasov1994/scrapewatch-ui:10
+        image: natanasov1994/scrapewatch-ui:11
         resources:
           limits:
             memory: 256Mi

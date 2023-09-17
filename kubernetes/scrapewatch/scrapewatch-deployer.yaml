@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: scrapewatch
-        image: natanasov1994/scrapewatch:3
+        image: natanasov1994/scrapewatch:7
         livenessProbe:
           initialDelaySeconds: 120
           httpGet:

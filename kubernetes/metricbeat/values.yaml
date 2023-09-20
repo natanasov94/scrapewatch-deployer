@@ -15,6 +15,12 @@ daemonset:
         period: 10s
         metrics_path: "/actuator/prometheus"
         hosts: ["scrapewatch.scrapewatch:8080"]
+      - module: prometheus
+        metricsets:
+          - collector
+        period: 10s
+        metrics_path: "/metrics"
+        hosts: ["scrapewatch-ui.scrapewatch:9113"]
       output.logstash:
         hosts: ["logstash-logstash.scrapewatch:5044"]
 

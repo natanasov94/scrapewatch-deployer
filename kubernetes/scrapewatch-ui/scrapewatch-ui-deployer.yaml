@@ -26,3 +26,16 @@ spec:
             cpu: "0.2"
         ports:
         - containerPort: 80
+      - name: scrapewatch-ui-exporter
+        image: nginx/nginx-prometheus-exporter
+        resources:
+          limits:
+            memory: 256Mi
+            cpu: "1"
+          requests:
+            memory: 128Mi
+            cpu: "0.2"
+        ports:
+          - containerPort: 9113
+        args:
+          - '-nginx.scrape-uri=http://localhost/metrics-raw'

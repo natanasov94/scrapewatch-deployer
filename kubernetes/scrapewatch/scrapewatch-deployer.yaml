@@ -16,7 +16,10 @@ spec:
     spec:
       containers:
       - name: scrapewatch
-        image: natanasov1994/scrapewatch:7
+        image: natanasov1994/scrapewatch:8
+        env:
+          - name: WEB_DRIVER_LOCATION
+            value: http://localhost:4444
         livenessProbe:
           initialDelaySeconds: 120
           httpGet:
@@ -36,3 +39,11 @@ spec:
             cpu: "0.2"
         ports:
         - containerPort: 8080
+      - name: scrapewatch-chrome
+        image: selenium/standalone-chrome:117.0
+        resources:
+          limits:
+            memory: 1Gi
+            cpu: "1"
+        ports:
+          - containerPort: 4444

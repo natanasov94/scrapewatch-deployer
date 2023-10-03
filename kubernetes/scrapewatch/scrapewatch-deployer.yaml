@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: scrapewatch
-        image: natanasov1994/scrapewatch:8
+        image: natanasov1994/scrapewatch:9
         env:
           - name: WEB_DRIVER_LOCATION
             value: http://localhost:4444
@@ -32,10 +32,10 @@ spec:
             port: 8080
         resources:
           limits:
-            memory: 256Mi
+            memory: 512Mi
             cpu: "1"
           requests:
-            memory: 128Mi
+            memory: 256Mi
             cpu: "0.2"
         ports:
         - containerPort: 8080
